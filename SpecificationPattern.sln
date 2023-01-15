@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecificationPattern.Logic", "SpecificationPattern.Logic\SpecificationPattern.Logic.csproj", "{329BEA75-EC2F-466D-8F5E-E99CDB402B22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecificationPattern.MinimalApi", "SpecificationPattern.MinimalApi\SpecificationPattern.MinimalApi.csproj", "{54E35459-DDDB-4998-A322-7F9603961BFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{329BEA75-EC2F-466D-8F5E-E99CDB402B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329BEA75-EC2F-466D-8F5E-E99CDB402B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329BEA75-EC2F-466D-8F5E-E99CDB402B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329BEA75-EC2F-466D-8F5E-E99CDB402B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E35459-DDDB-4998-A322-7F9603961BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E35459-DDDB-4998-A322-7F9603961BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E35459-DDDB-4998-A322-7F9603961BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E35459-DDDB-4998-A322-7F9603961BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
