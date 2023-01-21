@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using SpecificationPattern.Logic.Specifications.Abstract;
 
 namespace SpecificationPattern.Logic.Movies;
 
@@ -17,10 +18,18 @@ public class MovieRepository
         return _dbContext.Set<Movie>().FindAsync(id);
     }
 
-    public Task<Movie[]> GetListAsync(Expression<Func<Movie, bool>> expression)
+    public Task<Movie[]> GetListAsync(
+        Specification<Movie> specification,
+        double minimumRating,
+        int page = 0,
+        int pageSize = 4)
     {
         return _dbContext.Set<Movie>()
-            .Where(expression)
+            .Include(m => m.Director)
+            .Where(specification.ToExpression())
+            .Where(m => m.Rating >= minimumRating)
+            .Skip(page * pageSize)
+            .Take(pageSize)
             .ToArrayAsync();
     }
 }

@@ -27,6 +27,14 @@ public class MoviesDbContext : DbContext
             eb.Property(m => m.Rating);
             eb.Property(m => m.MpaaRating);
             eb.Property(m => m.ReleaseDate);
+            eb.HasOne<Director>(m => m.Director);
+        });
+
+        modelBuilder.Entity<Director>(eb =>
+        {
+            eb.HasKey(m => m.Id);
+            eb.Property(m => m.Id).HasColumnName("DirectorID");
+            eb.Property(m => m.Name);
         });
     }
 }
