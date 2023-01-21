@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SpecificationPattern.Logic.Movies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,13 +22,17 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapGet("/movies", (MovieRepository movieRepository,
-    [FromQuery] bool? forKidsOnly,
-    [FromQuery] double? minimumRating,
-    [FromQuery] bool? availableOnCd)
-        => movieRepository.GetListAsync(
-            forKidsOnly ?? false,
-            minimumRating ?? 0d,
-            availableOnCd ?? false))
+            [FromQuery] bool? forKidsOnly,
+            [FromQuery] double? minimumRating,
+            [FromQuery] bool? availableOnCd)
+        =>
+    {
+        var expression = forKidsOnly.HasValue && forKidsOnly.Value
+            ? Movie.IsSuitableForChildren
+            : m => true;
+        
+        return movieRepository.GetListAsync(expression);
+    })
 .WithName("GetAllMovies")
 .WithOpenApi();
 
@@ -41,7 +44,8 @@ app.MapPost("/ticketPurchases/children/{movieId}", async (long movieId, MovieRep
         return Results.BadRequest("Movie not found.");
     }
 
-    if (movie.MpaaRating > MpaaRating.PG)
+    var isSuitableForChildren = Movie.IsSuitableForChildren.Compile();
+    if (!isSuitableForChildren(movie))
     {
         return Results.BadRequest("Movie is not suitable for children");
     }
@@ -55,7 +59,8 @@ app.MapPost("/moviePurchases/cd/{movieId}", async (long movieId, MovieRepository
         return Results.BadRequest("Movie not found.");
     }
 
-    if (movie.ReleaseDate >= DateTime.Now.AddMonths(-6))
+    var hasCdVersion = Movie.HasCdVersion.Compile();
+    if (!hasCdVersion(movie))
     {
         return Results.BadRequest("Movie does not have a CD version yet.");
     }

@@ -1,9 +1,16 @@
-﻿using SpecificationPattern.Logic.Utils;
+﻿using System.Linq.Expressions;
+using SpecificationPattern.Logic.Utils;
 
 namespace SpecificationPattern.Logic.Movies;
 
 public class Movie : Entity
 {
+    public static readonly Expression<Func<Movie, bool>> IsSuitableForChildren =
+        m => m.MpaaRating <= MpaaRating.PG;
+
+    public static readonly Expression<Func<Movie, bool>> HasCdVersion =
+        m => m.ReleaseDate <= DateTime.Now.AddMonths(-6);
+    
     public string Name { get; }
     public DateTime ReleaseDate { get; }
     public MpaaRating MpaaRating { get; }

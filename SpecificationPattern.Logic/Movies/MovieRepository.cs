@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpecificationPattern.Logic.Movies;
 
@@ -16,13 +17,10 @@ public class MovieRepository
         return _dbContext.Set<Movie>().FindAsync(id);
     }
 
-    public Task<Movie[]> GetListAsync(bool forKidsOnly, double minimumRating, bool availableOnCd)
+    public Task<Movie[]> GetListAsync(Expression<Func<Movie, bool>> expression)
     {
         return _dbContext.Set<Movie>()
-            .Where(m => 
-                (m.MpaaRating <= MpaaRating.PG || !forKidsOnly)
-                && m.Rating >= minimumRating
-                && (m.ReleaseDate <= DateTime.Now.AddMonths(-6) || !availableOnCd))
+            .Where(expression)
             .ToArrayAsync();
     }
 }
