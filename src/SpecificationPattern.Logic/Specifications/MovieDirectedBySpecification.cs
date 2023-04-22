@@ -1,6 +1,5 @@
-using System.Linq.Expressions;
+using Ardalis.Specification;
 using SpecificationPattern.Logic.Movies;
-using SpecificationPattern.Logic.Specifications.Abstract;
 
 namespace SpecificationPattern.Logic.Specifications;
 
@@ -13,10 +12,7 @@ public class MovieDirectedBySpecification : Specification<Movie>
     public MovieDirectedBySpecification(string director)
     {
         _director = director;
-    }
-    
-    public override Expression<Func<Movie, bool>> ToExpression()
-    {
-        return m => m.Director.Name == _director;
+
+        Query.Where(m => m.Director.Name == _director);
     }
 }

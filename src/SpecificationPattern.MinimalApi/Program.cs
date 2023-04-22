@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpecificationPattern.Logic.Movies;
 using SpecificationPattern.Logic.Specifications;
-using SpecificationPattern.Logic.Specifications.Abstract;
 using SpecificationPattern.MinimalApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
