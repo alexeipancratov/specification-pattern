@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SpecificationPattern.Logic.Specifications.Abstract;
 
 namespace SpecificationPattern.Logic.Movies;
 
@@ -26,7 +26,7 @@ public class MovieRepository
     {
         return _dbContext.Set<Movie>()
             .Include(m => m.Director)
-            .Where(specification.ToExpression())
+            .WithSpecification(specification)
             .Where(m => m.Rating >= minimumRating)
             .Skip(page * pageSize)
             .Take(pageSize)

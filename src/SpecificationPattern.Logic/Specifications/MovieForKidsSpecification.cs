@@ -1,6 +1,5 @@
-using System.Linq.Expressions;
+using Ardalis.Specification;
 using SpecificationPattern.Logic.Movies;
-using SpecificationPattern.Logic.Specifications.Abstract;
 
 namespace SpecificationPattern.Logic.Specifications;
 
@@ -8,8 +7,8 @@ namespace SpecificationPattern.Logic.Specifications;
 // Bad examples of specs: MpaaRatingAtMost(MpaaRating rating), MovieForAdultsOnly.
 public class MovieForKidsSpecification : Specification<Movie>
 {
-    public override Expression<Func<Movie, bool>> ToExpression()
+    public MovieForKidsSpecification()
     {
-        return m => m.MpaaRating <= MpaaRating.PG;
+        Query.Where(m => m.MpaaRating <= MpaaRating.PG);
     }
 }
