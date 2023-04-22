@@ -15,6 +15,6 @@ public class AndSpecificationTests
         var onCd = new AvailableOnCdSpecification();
         
         // Act/Assert
-        onCd.And(forKids).ToExpression().Compile().Invoke(movie).Should().BeTrue();
+        onCd.And(forKids).IsSatisfiedBy(movie).Should().BeTrue();
     }
 }
