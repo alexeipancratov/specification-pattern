@@ -11,6 +11,14 @@ public class Movie : Entity
         MpaaRating = mpaaRating;
     }
     
+    public Movie(string name, DateTime releaseDate, MpaaRating mpaaRating, Director director)
+    {
+        Name = name;
+        ReleaseDate = releaseDate;
+        MpaaRating = mpaaRating;
+        Director = director;
+    }
+    
     public string Name { get; }
     public DateTime ReleaseDate { get; }
     public MpaaRating MpaaRating { get; }
